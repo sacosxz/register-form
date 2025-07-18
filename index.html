@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <title>แบบฟอร์มลงทะเบียน</title>
+  <style>
+    body {
+      background-color: #f4f4f4;
+      font-family: 'Sarabun', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    form {
+      background: #ffffff;
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+      width: 320px;
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 16px;
+    }
+
+    button {
+      width: 100%;
+      padding: 10px;
+      background-color: #2ecc71;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #27ae60;
+    }
+  </style>
+</head>
+<body>
+
+  <form id="contactForm">
+    <h2>แบบฟอร์มลงทะเบียน</h2>
+    
+    <select name="subject" required>
+      <option value="" disabled selected>ภูมิภาค</option>
+      <option value="ภาคเหนือ">ภาคเหนือ</option>
+      <option value="ภาคตะวันออกเฉียงเหนือ">ภาคตะวันออกเฉียงเหนือ</option>
+      <option value="ภาคตะวันตก">ภาคตะวันตก</option>
+      <option value="ภาคกลาง">ภาคกลาง</option>
+      <option value="ภาคตะวันออก">ภาคตะวันออก</option>
+      <option value="ภาคใต้">ภาคใต้</option>
+    </select>
+    
+    <input type="text" name="code" placeholder="รหัส" required>
+    
+    <button type="submit">ลงทะเบียน</button>
+  </form>
+
+  <script>
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbxd1_8WATLgG03sW6Wsf4bTP1DjicKMGOTzjzG0luMmqY7MeXABxwTH4Y5Pr83i0CJlXA/exec';
+    const form = document.getElementById('contactForm');
+
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+
+      const data = {
+        subject: form.subject.value,
+        code: form.code.value
+      };
+
+      fetch(scriptURL, {
+        method: 'POST',
+        body: JSON.stringify(data)
+      })
+      .then(response => {
+        alert("ส่งข้อมูลเรียบร้อยแล้ว!");
+        form.reset();
+      })
+      .catch(error => {
+        alert("เกิดข้อผิดพลาด: " + error.message);
+      });
+    });
+  </script>
+
+</body>
+</html>
+
